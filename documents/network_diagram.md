@@ -10,6 +10,7 @@ graph TD;
     
     subgraph Proxmox_Infrastructure
         proxmox["Proxmox Management (proxmox-mgmt.local)"]
+        proxmoxbs["Proxmox Backup (proxmox-bckup.local)"]
     end
     
     subgraph Orchestration
@@ -34,6 +35,7 @@ graph TD;
     end
     
     %% Connections
+    proxmox --> proxmoxbs
     proxmox --> automation
     automation --> ztrust
     ztrust -->|Access Requests| nas_proxy
@@ -60,6 +62,7 @@ graph TD;
 | **Server Name**           | **Category**                | **Network**         | **IP Address** |
 |---------------------------|-----------------------------|---------------------|----------------|
 | `proxmox-mgmt.local`      |Virtualization Host          | Management Network  | [To be filled] |
+| `proxmox-bckup.local`      |Virtualization Host          | Management Network  | [To be filled] |
 | `automation.local`        | Orchestration               | Management Network  | [To be filled] |
 | `ztrust-auth.local`       | ZTA - Access Control        | ZTA Network         | [To be filled] |
 | `nas-proxy.local`         | ZTA - Access Proxy          | ZTA Network         | [To be filled] |
