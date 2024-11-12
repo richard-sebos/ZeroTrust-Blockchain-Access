@@ -30,13 +30,13 @@ Implement Infrastructure as Code (IaC) using Terraform for VM/container provisio
       - Mount VM Storage on NAS
       - Setup git local environment
    - **Duration**: X days
-   - 
+  
 2. **Configure Terraform for Proxmox VE**  
    - **Objective**: Set up Terraform with required Proxmox VE providers and create initial configuration files.
    - **Tasks**:
      - Install and configure Proxmox VE provider in Terraform.
      - Verify Terraform's ability to connect to Proxmox API.
-   - **Duration**: x days
+   - **Duration**: 3 days
 
 3. **Define VM Specifications in Terraform**  
    - **Objective**: Create Terraform configurations for VM/container specifications to be deployed on Proxmox VE.
