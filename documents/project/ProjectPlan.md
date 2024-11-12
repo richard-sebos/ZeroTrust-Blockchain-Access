@@ -18,36 +18,46 @@ Implement Infrastructure as Code (IaC) using Terraform for VM/container provisio
 #### Task: Terraform & Ansible Setup
 
 1. **Install Tools**  
-   - **Objective**: Install Terraform and Ansible on the development laptop to set up the IaC environment.
-   - **Duration**: 1 day
-
+   - **Objective**: Install Terraform and Ansible on the development environment to set up the IaC environment.
+     - [X] Install VSCode on MacBook Air
+     - Install OS
+       - [ ] Download Oracle 9 Linux ISO
+       - [ ] Install Oracle 9 on 
+     - Install local Linux Applications
+       - [ ] vim
+       - [ ] Nano
+       - [ ] git
+      - Mount VM Storage on NAS
+      - Setup git local environment
+   - **Duration**: X days
+   - 
 2. **Configure Terraform for Proxmox VE**  
    - **Objective**: Set up Terraform with required Proxmox VE providers and create initial configuration files.
    - **Tasks**:
      - Install and configure Proxmox VE provider in Terraform.
      - Verify Terraform's ability to connect to Proxmox API.
-   - **Duration**: 1 day
+   - **Duration**: x days
 
 3. **Define VM Specifications in Terraform**  
    - **Objective**: Create Terraform configurations for VM/container specifications to be deployed on Proxmox VE.
    - **Tasks**:
      - Write and organize configuration files for each VM/container (e.g., blockchain nodes, NAS, microservice).
      - Define resources, networking, and firewall rules in configurations.
-   - **Duration**: 1 day
+   - **Duration**: x days
 
 4. **Develop Terraform Provisioning Scripts**  
    - **Objective**: Develop scripts for the automated provisioning of VMs/containers on Proxmox.
    - **Tasks**:
      - Test and refine Terraform scripts for error-free provisioning.
      - Verify successful VM/container deployment and networking configurations.
-   - **Duration**: 2 days
+   - **Duration**: x days
 
 5. **Install and Configure Ansible**  
    - **Objective**: Set up Ansible on the development laptop for configuration management.
    - **Tasks**:
      - Install Ansible and required plugins.
      - Test Ansible connection to the provisioned VMs/containers.
-   - **Duration**: 1 day
+   - **Duration**: x days
 
 6. **Develop Ansible Playbooks for Configuration Management**  
    - **Objective**: Create Ansible playbooks to automate OS setup, security configurations, and software installation on VMs/containers.
@@ -55,7 +65,7 @@ Implement Infrastructure as Code (IaC) using Terraform for VM/container provisio
      - Write playbooks for OS and service installation.
      - Implement security configurations and initial firewall rules.
      - Test and refine playbooks for consistency and error handling.
-   - **Duration**: 3 days
+   - **Duration**: x days
 
 
 #### Networking and firewall 
