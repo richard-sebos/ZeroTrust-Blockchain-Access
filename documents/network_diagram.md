@@ -15,6 +15,7 @@ graph TD;
     
     subgraph Orchestration
         automation["Automation Server (automation.local)"]
+        clone_master["Clone Server (clone_master.local")]
     end
 
     subgraph Zero_Trust_Architecture
@@ -64,6 +65,7 @@ graph TD;
 | `proxmox-mgmt.local`      |Virtualization Host          | Management Network  | [To be filled] |
 | `proxmox-bckup.local`      |Virtualization Host          | Management Network  | [To be filled] |
 | `automation.local`        | Orchestration               | Management Network  | [To be filled] |
+| `clone_master.local`      | Orchestration               | Management Network  | [192.168.178.10] |
 | `ztrust-auth.local`       | ZTA - Access Control        | ZTA Network         | [To be filled] |
 | `nas-proxy.local`         | ZTA - Access Proxy          | ZTA Network         | [To be filled] |
 | `opnsense.local`          | Network Security            | All Networks        | [To be filled] |
