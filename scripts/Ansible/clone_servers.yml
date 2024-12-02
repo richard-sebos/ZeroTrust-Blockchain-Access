@@ -1,0 +1,68 @@
+# Company: Sebos Technology
+# Date: 2024-11-30
+# Description: 
+#   Creates the blank VMs needed for a distributive ZTA blockchain project.
+#   This script clones an existing VM (ID 104) and assigns each new VM to a 
+#   specific pool in Proxmox.
+
+---
+- name: Clone multiple Proxmox VMs for ZTA Blockchain Project
+  hosts: localhost
+  vars_files:
+    - group_vars/all.yml                   # Load external variable definitions
+  gather_facts: no                         # Disable fact gathering (not needed for localhost tasks)
+  collections:
+    - community.general                    # Use community.general collection for Proxmox tasks
+  vars:
+    proxmox_validate_certs: false          # Skip SSL certificate validation (adjust for production)
+    master_vm_id: 104                      # ID of the existing master VM to be cloned
+    clone: "MasterCloneOra9"               # Base name for the clone operation in Proxmox
+    vm_storage: "vm_storage"               # Target storage for the new VMs
+    node: "{{ node }}"                     # Proxmox node hosting the VMs
+    api_host: "{{ api_host }}"             # Proxmox API host (e.g., IP or domain)
+    api_user: "{{ api_user }}"             # Proxmox API username
+    api_password: "{{ api_password }}"     # Proxmox API password
+    vm_definitions:                        # List of new VMs to be created
+      - { name: ztrust-auth, pool: ZTA_Access, new_id: "210" }  # Authentication server
+      - { name: nas-proxy, pool: ZTA_Access, new_id: "211" }    # Proxy for network access
+      - { name: bc-node1, pool: BlockChain, new_id: "212" }     # Blockchain node 1
+      - { name: bc-node2, pool: BlockChain, new_id: "213" }     # Blockchain node 2
+      - { name: bc-node3, pool: BlockChain, new_id: "214" }     # Blockchain node 3
+      - { name: nas, pool: FileServers, new_id: "215" }         # Network-attached storage server
+      - { name: monitor, pool: LogMon, new_id: "216" }          # Monitoring server
+      - { name: dns, pool: NetworkServices, new_id: "217" }     # DNS server
+      - { name: ntp, pool: NetworkServices, new_id: "218" }     # NTP server
+
+  tasks:
+    - name: Stop the master VM before cloning
+      community.general.proxmox_kvm:
+        api_host: "{{ api_host }}"         # API endpoint for Proxmox
+        api_user: "{{ api_user }}"         # Authentication username
+        api_password: "{{ api_password }}" # Authentication password
+        node: "{{ node }}"                 # Node where the VM is located
+        vmid: "{{ master_vm_id }}"         # ID of the master VM to stop
+        state: stopped                     # Ensure the VM is stopped before cloning
+
+    - name: Clone VMs from the master VM
+      community.general.proxmox_kvm:
+        api_host: "{{ api_host }}"         # Proxmox API endpoint
+        api_user: "{{ api_user }}"         # API username
+        api_password: "{{ api_password }}" # API password
+        node: "{{ node }}"                 # Proxmox node hosting the master VM
+        newid: "{{ item.new_id }}"         # ID for the new cloned VM
+        clone: "{{ clone }}"               # Base VM name used for cloning
+        vmid: "{{ master_vm_id }}"         # Master VM ID used for cloning
+        name: "{{ item.name }}"            # Assign a name to the new VM
+        pool: "{{ item.pool }}"            # Assign the new VM to a specific resource pool
+        full: true                         # Perform a full clone (not a linked clone)
+        storage: "{{ vm_storage }}"        # Target storage for the cloned VM
+      loop: "{{ vm_definitions }}"         # Iterate over each VM definition
+      register: clone_results              # Store the results of the clone operation
+
+    - name: Message result of each VM clone
+      ansible.builtin.debug:
+        msg: >                              # Display a success or failure message for each clone
+          VM '{{ item.item.name }}' clone result: {{ item | json_query('changed') | ternary("Success", "Failed") }}
+      loop: "{{ clone_results.results }}"  # Loop over the results of the clone operation
+      loop_control:
+        label: "{{ item.item.name }}"      # Display the VM name in loop output
