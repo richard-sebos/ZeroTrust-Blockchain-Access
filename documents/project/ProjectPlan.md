@@ -1,6 +1,8 @@
 
 # Project Plan: Blockchain-Based Zero Trust Architecture (ZTA) for NAS Access Control
 
+[thought process](https://github.com/richard-sebos/second-brain/blob/main/Projects/Sebos/Buffer/ZTA/WorkingPlan.md)
+
 ## 1. Project Overview
 
 ### Objective
